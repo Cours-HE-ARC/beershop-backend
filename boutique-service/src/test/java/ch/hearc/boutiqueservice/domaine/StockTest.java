@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
+import ch.hearc.boutiqueservice.domaine.exception.StockInsuffisantException;
 import ch.hearc.boutiqueservice.domaine.model.Biere;
 import ch.hearc.boutiqueservice.domaine.model.Fabricant;
 import ch.hearc.boutiqueservice.domaine.model.Stock;
@@ -38,6 +39,49 @@ public class StockTest {
 		assertFalse(stock.enStock());
 		
 	}
+	
+	@Test
+	public void givenStockIn10_whenGetIsEnStock_thenReturnTrue() {
+		
+		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		BigDecimal prix = new BigDecimal("2.95");
+		
+		Stock stock = Stock.stockPourBiere(biere, 10, prix);
+		
+		assertTrue(stock.enStock());
+		
+	}
+	
+	@Test
+	public void givenStockIn10_whenDestock8_thenStockRestantEquals2() {
+		
+		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		BigDecimal prix = new BigDecimal("2.95");
+		
+		Stock stock = Stock.stockPourBiere(biere, 10, prix);
+		
+		stock.destocke(8);
+		
+		assertTrue(stock.enStock());
+		assertTrue(stock.getStock() == 2);
+		
+	}
+	
+	@Test(expected = StockInsuffisantException.class)
+	public void givenStockIn10_whenDestock18_thenStockInsuffisantExceptionExceptionIsThrown() {
+		
+		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		BigDecimal prix = new BigDecimal("2.95");
+		
+		Stock stock = Stock.stockPourBiere(biere, 10, prix);
+		
+		stock.destocke(18);
+		
+		fail();
+		
+	}
+	
+	
 	
 	
 

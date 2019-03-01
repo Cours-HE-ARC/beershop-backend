@@ -3,6 +3,8 @@ package ch.hearc.boutiqueservice.domaine.model;
 import java.math.BigDecimal;
 import java.util.Objects;
 
+import ch.hearc.boutiqueservice.domaine.exception.StockInsuffisantException;
+
 public class Stock {
 	
 	private Biere biere;
@@ -19,6 +21,18 @@ public class Stock {
 		return biere;
 	}
 
+	public void destocke(int nbre) {
+		
+		if(stock < nbre) {
+			throw new StockInsuffisantException(
+					String.format("Le stocke actuel [%s] ne contient pas assez d'élément pour destocker [%s]",stock,nbre)
+				);
+		}
+		
+		stock = stock - nbre;
+		
+	}
+	
 	public int getStock() {
 		return stock;
 	}
