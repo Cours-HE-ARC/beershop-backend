@@ -21,14 +21,15 @@ public class Biere {
 	public static Biere creerBiere(String nom, TypeBiere type, Fabricant fabricant) {
 		valideParametres(nom, type, fabricant);
 		
-		return new Biere(nom, type);
+		return new Biere(nom, type, fabricant);
 		
 	}
 
-	private Biere(String nom, TypeBiere type) {
+	private Biere(String nom, TypeBiere type, Fabricant fabricant) {
 		super();
 		this.nom = nom;
 		this.type = type;
+		this.fabricant = fabricant;
 	}
 
 	private static void valideParametres(String nom, TypeBiere type, Fabricant fabricant) {
@@ -38,7 +39,7 @@ public class Biere {
 		Objects.requireNonNull(fabricant);
 		
 		if(nom.isEmpty() || nom.length() < 5) {
-			throw new IllegalArgumentException("Le nom de la biere doit comporter au moins 5 caractÃ¨res");
+			throw new IllegalArgumentException("Le nom de la biere doit comporter au moins 5 caractères");
 		}
 	}
 }
