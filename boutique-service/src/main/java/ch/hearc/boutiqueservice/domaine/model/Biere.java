@@ -18,20 +18,21 @@ public class Biere {
 		return fabricant;
 	}
 
-	private String identifiant;
+	
 	public String getIdentifiant() {
 		return identifiant;
 	}
 
+	private String identifiant;
 	private String nom;
 	private TypeBiere type;
 	private Fabricant fabricant;
 	
 	public static Biere creerBiere(String nom, TypeBiere type, Fabricant fabricant) {
+		
 		valideParametres(nom, type, fabricant);
 		
 		return new Biere(nom, type, fabricant);
-		
 	}
 
 	private Biere(String nom, TypeBiere type, Fabricant fabricant) {
@@ -49,7 +50,7 @@ public class Biere {
 		Objects.requireNonNull(fabricant);
 		
 		if(nom.isEmpty() || nom.length() < 5) {
-			throw new IllegalArgumentException("Le nom de la biere doit comporter au moins 5 caractères");
+			throw new IllegalArgumentException("Le nom de la biere doit comporter au moins 5 caractï¿½res");
 		}
 	}
 }

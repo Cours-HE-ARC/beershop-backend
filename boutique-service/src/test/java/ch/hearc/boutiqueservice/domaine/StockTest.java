@@ -17,7 +17,7 @@ public class StockTest {
 	@Test
 	public void givenBiereAndStockAndPrix_whenInsanciateStock_thenStockOk() {
 		
-		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		Biere biere = Biere.creerBiere("BiereTest", new TypeBiere("Ambree"), new Fabricant("FELDSCHLOSCHEN"));
 		BigDecimal prix = new BigDecimal("2.95");
 		
 		Stock stock = Stock.stockPourBiere(biere, 2, prix);
@@ -31,7 +31,7 @@ public class StockTest {
 	@Test
 	public void givenStockIn0_whenGetIsEnStock_thenReturnFalse() {
 		
-		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		Biere biere = Biere.creerBiere("BiereTest", new TypeBiere("Ambree"), new Fabricant("FELDSCHLOSCHEN"));
 		BigDecimal prix = new BigDecimal("2.95");
 		
 		Stock stock = Stock.stockPourBiere(biere, 0, prix);
@@ -43,7 +43,7 @@ public class StockTest {
 	@Test
 	public void givenStockIn10_whenGetIsEnStock_thenReturnTrue() {
 		
-		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		Biere biere = Biere.creerBiere("BiereTest", new TypeBiere("Ambree"), new Fabricant("FELDSCHLOSCHEN"));
 		BigDecimal prix = new BigDecimal("2.95");
 		
 		Stock stock = Stock.stockPourBiere(biere, 10, prix);
@@ -55,7 +55,7 @@ public class StockTest {
 	@Test
 	public void givenStockIn10_whenDestock8_thenStockRestantEquals2() {
 		
-		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		Biere biere = Biere.creerBiere("BiereTest", new TypeBiere("Ambree"), new Fabricant("FELDSCHLOSCHEN"));
 		BigDecimal prix = new BigDecimal("2.95");
 		
 		Stock stock = Stock.stockPourBiere(biere, 10, prix);
@@ -70,7 +70,7 @@ public class StockTest {
 	@Test(expected = StockInsuffisantException.class)
 	public void givenStockIn10_whenDestock18_thenStockInsuffisantExceptionExceptionIsThrown() {
 		
-		Biere biere = Biere.creerBiere("BiereTest", TypeBiere.AMBREE, Fabricant.FELDSCHLOSCHEN);
+		Biere biere = Biere.creerBiere("BiereTest", new TypeBiere("Ambree"), new Fabricant("FELDSCHLOSCHEN"));
 		BigDecimal prix = new BigDecimal("2.95");
 		
 		Stock stock = Stock.stockPourBiere(biere, 10, prix);

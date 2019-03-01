@@ -1,6 +1,17 @@
 package ch.hearc.boutiqueservice.domaine.model;
 
-public enum Fabricant {
+public class Fabricant {
 
-	FELDSCHLOSCHEN, WARTECK, BFM, CARDINAL, SAGRES;
+	private String nom;
+
+	public Fabricant(String nom) {
+		super();
+		this.nom = nom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+	
+	
 }

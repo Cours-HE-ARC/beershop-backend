@@ -1,7 +1,18 @@
 package ch.hearc.boutiqueservice.domaine.model;
 
-public enum TypeBiere {
+public class TypeBiere {
 	
-	BLANCHE, BLONDE, AMBREE, BRUNE;
+	private String nom;
+
+	public TypeBiere(String nom) {
+		super();
+		this.nom = nom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+	
+	
 
 }
