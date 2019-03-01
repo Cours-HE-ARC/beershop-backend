@@ -57,5 +57,14 @@ public class BiereTest {
 		fail();	
 	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void givenNameAndTypeAndFabricant_whenInstanciateBiere_thenIdentifiantIsGenereated() {
+		Biere biere = Biere.creerBiere("123", TypeBiere.AMBREE,Fabricant.BFM);
+		
+		assertTrue(biere.getIdentifiant()!= null);
+		assertTrue(biere.getIdentifiant().length() == 36);
+		
+	}
+	
 	
 }

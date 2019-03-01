@@ -1,8 +1,8 @@
 package ch.hearc.boutiqueservice.domaine.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
-import org.apache.tomcat.util.buf.StringUtils;
 
 public class Biere {
 
@@ -12,6 +12,15 @@ public class Biere {
 
 	public TypeBiere getType() {
 		return type;
+	}
+
+	public Fabricant getFabricant() {
+		return fabricant;
+	}
+
+	private String identifiant;
+	public String getIdentifiant() {
+		return identifiant;
 	}
 
 	private String nom;
@@ -30,6 +39,7 @@ public class Biere {
 		this.nom = nom;
 		this.type = type;
 		this.fabricant = fabricant;
+		this.identifiant = UUID.randomUUID().toString();
 	}
 
 	private static void valideParametres(String nom, TypeBiere type, Fabricant fabricant) {
