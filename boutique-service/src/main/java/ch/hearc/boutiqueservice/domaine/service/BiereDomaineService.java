@@ -30,23 +30,34 @@ public class BiereDomaineService {
 	public Biere creerBiere (CreerBiereCommande creerBiereCommande) {
 		
 		Fabricant fabricant = fabricantRepository.getFabricantById(creerBiereCommande.getIdFabricant());
-		
 		TypeBiere typeBiere = biereRepository.getTypeBiereById(creerBiereCommande.getIdType());
 		
-		Biere biere = Biere.creerBiere(creerBiereCommande.getNom(), 
+		Stock stock = Stock.creerStock(genererStockDescription(creerBiereCommande), creerBiereCommande.getStockInitial());
+		
+		Article article = Article.creerArticle(
+				genererArticleDescription(creerBiereCommande), 
+				creerBiereCommande.getPrix(), 
+				fabricant,
+				stock);
+		
+		
+		Biere biere = Biere.creerBiere(genererArticleDescription(creerBiereCommande), 
 				creerBiereCommande.getPrix(), 
 				creerBiereCommande.getContenanceLitre(), 
 				typeBiere, 
-				fabricant,
-				creerBiereCommande.getStockInitial());
+				article);
 		
-		biereRepository.creerBiere(biere);
-		
-		
-		Stock stock = Stock.creerStock(biere.getArticle(), creerBiereCommande.getStockInitial());
-		stockRepository.creerStock(stock);
+		biere = biereRepository.ajouterBiere(biere);
 		
 		return biere;
 		
+	}
+
+	private String genererStockDescription(CreerBiereCommande creerBiereCommande) {
+		return "Stock pour " + creerBiereCommande.getNom();
+	}
+
+	private String genererArticleDescription(CreerBiereCommande creerBiereCommande) {
+		return "Biere, "+ genererStockDescription(creerBiereCommande);
 	}
 }

@@ -4,5 +4,5 @@ import ch.hearc.boutiqueservice.domaine.model.Stock;
 
 public interface StockRepository {
 
-	Stock creerStock(Stock stock);
+	
 }

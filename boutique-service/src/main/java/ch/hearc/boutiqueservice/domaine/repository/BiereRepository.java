@@ -11,7 +11,7 @@ public interface BiereRepository {
 
 	List<Biere> listerBiere();
 
-	Biere creerBiere(Biere biere);
+	Biere ajouterBiere(Biere biere);
 	
 	List<TypeBiere> listerTypeBieres();
 

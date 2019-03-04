@@ -1,3 +1,3 @@
-insert into TYPE_BIERE (nom) values ('Blonde'), ('Ambrée');
+insert into TYPE_BIERE (nom) values ('Blonde'), ('AmbrÃ©e');
 
 insert into FABRICANT (nom) values ('BFM'), ('Cardinal');

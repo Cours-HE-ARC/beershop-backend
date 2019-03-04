@@ -43,7 +43,7 @@ public class BiereRessource {
 				b.getType().getNom(),
 				b.getArticle().getFabricant().getNom(),
 				b.getArticle().getPrix().toString(), 
-				b.getArticle().getStock());
+				b.getArticle().getStock().getStock());
 	}
 
 	public String getType() {

@@ -2,23 +2,16 @@ package ch.hearc.boutiqueservice.domaine.model;
 
 public class Stock {
 
-	private Article article;
-	private int stock;
 	
+	private int stock;
+	private String description;
 	
 
-	private Stock(Article article, int stock) {
+	private Stock(String description,int stock) {
 		super();
-		this.article = article;
+		this.description = description;
 		this.stock = stock;
 	}
-
-
-
-	public Article getArticle() {
-		return article;
-	}
-
 
 
 	public int getStock() {
@@ -27,7 +20,12 @@ public class Stock {
 
 
 
-	public static Stock creerStock(Article article, int stock) {
-		return new Stock(article, stock);
+	public static Stock creerStock(String description, int stock) {
+		return new Stock(description, stock);
+	}
+
+
+	public String getDescription() {
+		return description;
 	}
 }

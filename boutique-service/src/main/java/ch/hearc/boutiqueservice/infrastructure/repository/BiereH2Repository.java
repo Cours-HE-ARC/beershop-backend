@@ -10,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ch.hearc.boutiqueservice.application.api.web.ressources.BiereRessource;
+import ch.hearc.boutiqueservice.domaine.model.Article;
 import ch.hearc.boutiqueservice.domaine.model.Biere;
+import ch.hearc.boutiqueservice.domaine.model.Fabricant;
+import ch.hearc.boutiqueservice.domaine.model.Stock;
 import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
 import ch.hearc.boutiqueservice.domaine.repository.BiereRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.ArticleSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.BiereJpaRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.FabricantSpringDataRepository;
+import ch.hearc.boutiqueservice.infrastructure.jpa.StockSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.TypeBiereSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.repository.entity.ArticleEntity;
 import ch.hearc.boutiqueservice.infrastructure.repository.entity.BiereEntity;
@@ -38,24 +42,54 @@ public class BiereH2Repository implements BiereRepository {
 	@Autowired
 	private ArticleSpringDataRepository articleSpringDataRepository;
 	
+	@Autowired
+	private StockSpringDataRepository stockSpringDataRepository;
+	
 	
 	
 
 
-	public Biere creerBiere(Biere biere) {
+	public Biere ajouterBiere(Biere biere) {
 		
+		//récupératio des fabricant et type passé en param avec id
 		FabricantEntity fabricantEntity = fabricantSpringDataRepository.findById(biere.getArticle().getFabricant().getId()).get();
 		TypeBiereEntity typeBiere = typeBiereRepository.findById(biere.getType().getId()).get();
 	
+		
+		StockEntity stockEntity = stockSpringDataRepository.save(new StockEntity(biere.getArticle().getStock()));
+		
 		ArticleEntity articleEntity = articleSpringDataRepository.save(
-				new ArticleEntity(biere.getArticle().getDescription(), biere.getArticle().getPrix(),fabricantEntity,biere.getArticle().getStock()));
+				new ArticleEntity(biere.getArticle(), stockEntity, fabricantEntity)
+		);
 		
 		
-		BiereEntity bEntity = new BiereEntity(articleEntity,typeBiere,biere.getNom(),biere.getArticle().getPrix());
+		BiereEntity biereEntity = new BiereEntity(
+				articleEntity,
+				typeBiere,
+				biere.getNom(),
+				biere.getArticle().getPrix());
 		
-		this.biereJpaRepository.save(bEntity);
+		this.biereJpaRepository.save(biereEntity);
 		
-		return bEntity.toBiere();
+		return creerBiereAgregatFromEntity(biereEntity);
+	}
+
+	private Biere creerBiereAgregatFromEntity(BiereEntity biereEntity) {
+		
+		return Biere.creerBiere(
+				biereEntity.getNom(), 
+				biereEntity.getArticle().getPrix(), 
+				biereEntity.getContenanceLitre(), 
+				new TypeBiere(biereEntity.getType().getId(),biereEntity.getType().getNom()),
+				Article.mapChampsArticle(
+						biereEntity.getArticle().getDescription(),
+						biereEntity.getArticle().getNoArticle(), 
+						biereEntity.getArticle().getActif(),
+						biereEntity.getArticle().getPrix(), 
+						new Fabricant(biereEntity.getArticle().getFabricant().getId(),
+								biereEntity.getArticle().getFabricant().getNom()),
+						Stock.creerStock(biereEntity.getArticle().getStock().getDescription(),biereEntity.getArticle().getStock().getStock()))
+				);
 	}
 	
 	public List<Biere> listerBiere() {
@@ -71,9 +105,8 @@ public class BiereH2Repository implements BiereRepository {
 		biereJpaRepository.findAll().forEach(bieres::add);
 		
 		
-		
 		return bieres.stream().map(biereEntity -> {
-			return biereEntity.toBiere();
+			return creerBiereAgregatFromEntity(biereEntity);
 		}).collect(Collectors.toList());
 		
 		

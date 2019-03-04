@@ -20,15 +20,5 @@ public class StockH2Repository implements StockRepository{
 	@Autowired
 	private ArticleSpringDataRepository articleSpringDataRepository;
 	
-	@Override
-	public Stock creerStock(Stock stock) {
-		
-		ArticleEntity article = articleSpringDataRepository.findByNoArticle(stock.getArticle().getNoArticle()).get();
-		
-		StockEntity entity = stockSpringDataRepository.save(
-				new StockEntity(article, stock.getArticle().getStock()));
-		
-		return entity.toStock();
-		
-	}
+	
 }

@@ -60,15 +60,16 @@ public class BiereEntity {
 		return contenanceLitre;
 	}
 
-	public Biere toBiere() {
-		return Biere.creerBiere(nom, 
-				this.article.getPrix(), 
-				this.getContenanceLitre(), 
-				this.type.toTypeBiere(),
-				this.article.getFabricant().toFabricant(),
-				this.article.getStock());
-	}
 	
+
+	public TypeBiereEntity getType() {
+		return type;
+	}
+
+	public ArticleEntity getArticle() {
+		return article;
+	}
+
 	public BiereEntity fromBiere(Biere biere) {
 		
 		BiereEntity bEntity = new BiereEntity(article,type,biere.getNom(),biere.getContenanceL());

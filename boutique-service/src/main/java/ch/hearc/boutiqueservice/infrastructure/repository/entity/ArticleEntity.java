@@ -38,15 +38,12 @@ public class ArticleEntity {
 	@Column(name = "prix")
 	private BigDecimal prix;
 	
-	@Column(name = "stock")
-	private int stock;
-	
-	public int getStock() {
-		return stock;
-	}
-
 	@ManyToOne
-    @JoinColumn(name="fabricant_id", nullable=false)
+	@JoinColumn(name = "stock_id", nullable = false)
+	private StockEntity stock;
+	
+	@ManyToOne
+    @JoinColumn(name="fabricant_id", nullable = false)
     private FabricantEntity fabricant;
 
 	public ArticleEntity(Long id) {
@@ -55,13 +52,13 @@ public class ArticleEntity {
 	
 	ArticleEntity() {}
 
-	public ArticleEntity(String description, BigDecimal prix, FabricantEntity fabricant, int stock) {
+	public ArticleEntity(Article article, StockEntity stock, FabricantEntity fabricantEntity) {
 		super();
-		this.noArticle = UUID.randomUUID().toString();
-		this.actif = Boolean.TRUE;
-		this.description = description;
-		this.prix = prix;
-		this.fabricant = fabricant;
+		this.noArticle = article.getNoArticle();
+		this.actif = article.getActif();
+		this.description = article.getDescription();
+		this.prix = article.getPrix();
+		this.fabricant = fabricantEntity;
 		this.stock = stock;
 	}
 
@@ -89,9 +86,12 @@ public class ArticleEntity {
 		return fabricant;
 	}
 	
+
 	
-	public Article toArticle() {
-		return new Article(this.description,this.prix,this.fabricant.toFabricant(),this.stock);
+	public StockEntity getStock() {
+		return stock;
 	}
+	
+	
 	
 }

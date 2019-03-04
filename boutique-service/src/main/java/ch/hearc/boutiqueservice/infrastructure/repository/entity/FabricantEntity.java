@@ -26,10 +26,18 @@ public class FabricantEntity {
 	//@OneToMany(mappedBy="id")
     //private Set<ArticleEntity> articles;
 	
-	public FabricantEntity(String nom) {
-		this.nom = nom;
+	public FabricantEntity(Fabricant fabricant) {
+		this.nom = fabricant.getNom();
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
 	FabricantEntity() {
 	}
 

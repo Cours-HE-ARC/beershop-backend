@@ -3,6 +3,8 @@ package ch.hearc.boutiqueservice.infrastructure.repository.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -14,19 +16,26 @@ import ch.hearc.boutiqueservice.domaine.model.Stock;
 @Table(name = "stock_article")
 public class StockEntity {
 
+	
+	
+	StockEntity() {
+		super();
+	}
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "stock")
 	private int stock;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@MapsId
-	private ArticleEntity article;
+	@Column(name = "description")
+	private String description;
 	
-	public StockEntity(ArticleEntity articleEntity, int stock) {
-		this.article = articleEntity;
-		this.stock = stock;
+	public StockEntity(Stock stock) {
+		this.stock = stock.getStock();
+		this.description = stock.getDescription();
+		
 	}
 
 	public Long getId() {
@@ -34,15 +43,16 @@ public class StockEntity {
 	}
 	
 	public Stock toStock() {
-		return Stock.creerStock(article.toArticle(), stock);
+		return Stock.creerStock(description, stock);
 	}
 
 	public int getStock() {
 		return stock;
 	}
 
-	public ArticleEntity getArticle() {
-		return article;
+	public String getDescription() {
+		return description;
 	}
+
 	
 }

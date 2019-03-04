@@ -10,10 +10,21 @@ public  class Article {
 	private Boolean actif;
 	private Fabricant fabricant;
 	private String description;
-	private int stock;
+	private Stock stock;
+	
+	public static Article creerArticle(String description,BigDecimal prix, Fabricant fabricant, Stock stock) {
+		return new Article(description, prix, fabricant,stock);
+	}
+	
+	public static Article mapChampsArticle(String description,String noArticle, Boolean actif, BigDecimal prix, Fabricant fabricant, Stock stock) {
+		Article article =  new Article(description, prix, fabricant,stock);
+		article.noArticle = noArticle;
+		article.actif = actif;
+		return article;
+	}
 	
 	
-	public Article(String description,BigDecimal prix, Fabricant fabricant, int stock) {
+	private Article(String description,BigDecimal prix, Fabricant fabricant, Stock stock) {
 		this.prix = prix;
 		this.noArticle = UUID.randomUUID().toString();
 		this.actif = Boolean.TRUE;
@@ -21,6 +32,12 @@ public  class Article {
 		this.description = description;
 		this.stock = stock;
 	}
+	
+	public Stock getStock() {
+		return stock;
+	}
+
+	
 	
 	public String getDescription() {
 		return description;
@@ -42,13 +59,6 @@ public  class Article {
 		return actif;
 	}
 	
-	public void defineFabricant(Fabricant fabricant) {
-		this.fabricant = fabricant;
-	}
 	
-	public int getStock() {
-		return stock;
-	}
-
 	
 }

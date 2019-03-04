@@ -40,7 +40,7 @@ public class Biere{
 	}
 
 	
-	private Biere(String nom, BigDecimal prix, BigDecimal contenanceL,TypeBiere typeBiere, Fabricant fabricant, Article article) {
+	private Biere(String nom, BigDecimal prix, BigDecimal contenanceL,TypeBiere typeBiere, Article article) {
 		
 		this.nom = nom;
 		this.type = typeBiere;
@@ -59,14 +59,19 @@ public class Biere{
 		}
 	}
 
-	public static Biere creerBiere(String nom, BigDecimal prix, BigDecimal contenanceL, TypeBiere typeBiere, Fabricant fabricant, int stockInitial) {
+	public static Biere creerBiere(String nom, BigDecimal prix, BigDecimal contenanceL, TypeBiere typeBiere, Article article) {
 		
-		Article article = new Article("Biere: " + nom, prix, fabricant, stockInitial);
-		
-		Biere bierre = new Biere(nom, prix, contenanceL, typeBiere, fabricant,article);
+		Biere bierre = new Biere(nom, prix, contenanceL, typeBiere, article);
 		System.out.println(bierre);
 		return bierre;
 		
+	}
+	
+	public static Biere mapBiereFields(String nom, BigDecimal prix, BigDecimal contenanceL, TypeBiere typeBiere,  Article article) {
+		
+		Biere bierre = new Biere(nom, prix, contenanceL, typeBiere, article);
+		System.out.println(bierre);
+		return bierre;
 		
 	}
 
