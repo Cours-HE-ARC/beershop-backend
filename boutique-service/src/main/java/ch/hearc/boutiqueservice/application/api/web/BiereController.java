@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.hearc.boutiqueservice.application.api.web.ressources.BiereRessource;
 import ch.hearc.boutiqueservice.application.api.web.ressources.CreerBiereReponseResource;
+import ch.hearc.boutiqueservice.application.api.web.ressources.TypeBiereRessource;
 import ch.hearc.boutiqueservice.application.service.BiereService;
 import ch.hearc.boutiqueservice.domaine.commande.CreerBiereCommande;
 
@@ -34,10 +35,20 @@ public class BiereController {
 		}).collect(Collectors.toList());
 	}
 	
+	@GetMapping("type")
+	public List<TypeBiereRessource> getAllTypeBieres(){
+		
+		return biereService.getAllTypeBieres().stream().map(tbiere -> {
+			return TypeBiereRessource.fromTypeBiere(tbiere);
+		}).collect(Collectors.toList());
+		
+	}
+	
 	
 	@PostMapping
 	public CreerBiereReponseResource createBiere(@RequestBody CreerBiereCommande creerBiereCommande ){
 		
+		System.out.println(creerBiereCommande);
 		
 		return CreerBiereReponseResource.fromBiere(biereService.creerBiere(creerBiereCommande));
 	}

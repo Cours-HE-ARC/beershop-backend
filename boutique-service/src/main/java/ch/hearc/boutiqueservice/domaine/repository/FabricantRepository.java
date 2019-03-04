@@ -1,5 +1,13 @@
 package ch.hearc.boutiqueservice.domaine.repository;
 
-public class FabricantRepository {
+import java.util.List;
+
+import ch.hearc.boutiqueservice.domaine.model.Fabricant;
+
+public interface FabricantRepository {
+
+	Fabricant getFabricantById(String idFabricant);
+	
+	List<Fabricant> getAllFabricants();
 
 }

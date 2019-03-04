@@ -17,12 +17,27 @@ import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
  */
 public class CreerBiereCommande {
 
+	
+	@Override
+	public String toString() {
+		return "CreerBiereCommande [nom=" + nom + ", idType=" + idType + ", idFabricant=" + idFabricant
+				+ ", contenanceLitre=" + contenanceLitre + ", prix=" + prix + ", stockInitial=" + stockInitial + "]";
+	}
+	
 	private String nom;
 	private String idType;
 	private String idFabricant;
 	private BigDecimal contenanceLitre;
+	private BigDecimal prix;
+	private Integer stockInitial;
 	
 	
+	public Integer getStockInitial() {
+		return stockInitial;
+	}
+	public BigDecimal getPrix() {
+		return prix;
+	}
 	public BigDecimal getContenanceLitre() {
 		return contenanceLitre;
 	}

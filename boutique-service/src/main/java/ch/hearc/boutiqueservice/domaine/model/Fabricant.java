@@ -4,9 +4,16 @@ public class Fabricant {
 
 	private String nom;
 
-	public Fabricant(String nom) {
+	private Long id;
+	
+	public Fabricant(Long id,String nom) {
 		super();
 		this.nom = nom;
+		this.id = id;
+	}
+
+	public Long getId() {
+		return id;
 	}
 
 	public String getNom() {

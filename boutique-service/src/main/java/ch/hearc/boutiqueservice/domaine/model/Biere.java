@@ -1,10 +1,17 @@
 package ch.hearc.boutiqueservice.domaine.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.UUID;
 
 
-public class Biere extends Article{
+public class Biere{
+
+	@Override
+	public String toString() {
+		return "Biere [identifiant=" + identifiant + ", nom=" + nom + ", type=" + type + ", contenanceL=" + contenanceL
+				+ "]";
+	}
 
 	public String getNom() {
 		return nom;
@@ -24,25 +31,22 @@ public class Biere extends Article{
 	private String identifiant;
 	private String nom;
 	private TypeBiere type;
+	private BigDecimal contenanceL;
+	private Article article;
 	
-	
-	public static Biere creerBiere(String nom, TypeBiere type) {
-		
-		valideParametres(nom, type);
-		
-		return new Biere(nom, type);
+
+	public BigDecimal getContenanceL() {
+		return contenanceL;
 	}
 
-	private Biere(String nom, TypeBiere type) {
-		super();
+	
+	private Biere(String nom, BigDecimal prix, BigDecimal contenanceL,TypeBiere typeBiere, Fabricant fabricant, Article article) {
+		
 		this.nom = nom;
-		this.type = type;
+		this.type = typeBiere;
 		this.identifiant = UUID.randomUUID().toString();
-	}
-
-	public Biere(String nom, TypeBiere typeBiere, Fabricant fabricant) {
-		this(nom,typeBiere);
-		this.defineFabricant(fabricant);
+		this.contenanceL = contenanceL;
+		this.article = article;
 	}
 
 	private static void valideParametres(String nom, TypeBiere type) {
@@ -55,10 +59,18 @@ public class Biere extends Article{
 		}
 	}
 
-	public static Biere creerBiere(String nom, TypeBiere typeBiere, Fabricant fabricant) {
-		Biere bierre = new Biere(nom, typeBiere, fabricant);
+	public static Biere creerBiere(String nom, BigDecimal prix, BigDecimal contenanceL, TypeBiere typeBiere, Fabricant fabricant, int stockInitial) {
+		
+		Article article = new Article("Biere: " + nom, prix, fabricant, stockInitial);
+		
+		Biere bierre = new Biere(nom, prix, contenanceL, typeBiere, fabricant,article);
+		System.out.println(bierre);
 		return bierre;
 		
 		
+	}
+
+	public Article getArticle() {
+		return article;
 	}
 }

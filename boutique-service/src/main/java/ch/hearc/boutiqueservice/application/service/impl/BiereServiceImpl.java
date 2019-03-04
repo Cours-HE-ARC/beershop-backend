@@ -10,8 +10,10 @@ import ch.hearc.boutiqueservice.application.api.web.ressources.BiereRessource;
 import ch.hearc.boutiqueservice.application.service.BiereService;
 import ch.hearc.boutiqueservice.domaine.commande.CreerBiereCommande;
 import ch.hearc.boutiqueservice.domaine.model.Biere;
+import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
 import ch.hearc.boutiqueservice.domaine.repository.BiereRepository;
 import ch.hearc.boutiqueservice.domaine.repository.FabricantRepository;
+import ch.hearc.boutiqueservice.domaine.repository.StockRepository;
 import ch.hearc.boutiqueservice.domaine.service.BiereDomaineService;
 
 @Service
@@ -21,13 +23,15 @@ public class BiereServiceImpl implements BiereService {
 	private BiereRepository biereRepository;
 	private FabricantRepository fabricantRepository;
 	private BiereDomaineService biereDomaineService;
+	private StockRepository stockRepository;
 	
 	
 	@Autowired
-	public BiereServiceImpl(BiereRepository biereRepository,FabricantRepository fabricantRepository) {
+	public BiereServiceImpl(BiereRepository biereRepository,FabricantRepository fabricantRepository,StockRepository stockRepository) {
 		this.biereRepository = biereRepository;
 		this.fabricantRepository = fabricantRepository;
-		this.biereDomaineService = new BiereDomaineService(biereRepository, fabricantRepository);
+		this.stockRepository = stockRepository;
+		this.biereDomaineService = new BiereDomaineService(biereRepository, fabricantRepository, stockRepository);
 	}
 
 
@@ -37,6 +41,13 @@ public class BiereServiceImpl implements BiereService {
 	public List<Biere> getAllBieres() {
 		
 		return biereRepository.listerBiere();
+	
+	}
+	
+	@Override
+	public List<TypeBiere> getAllTypeBieres() {
+		
+		return biereRepository.listerTypeBieres();
 	
 	}
 	

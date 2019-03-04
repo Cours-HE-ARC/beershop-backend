@@ -3,9 +3,15 @@ package ch.hearc.boutiqueservice.domaine.model;
 public class TypeBiere {
 	
 	private String nom;
+	
+	private Long id;
 
-	public TypeBiere(String nom) {
-		super();
+	public Long getId() {
+		return id;
+	}
+
+	public TypeBiere(Long id, String nom) {
+		this.id = id;
 		this.nom = nom;
 	}
 

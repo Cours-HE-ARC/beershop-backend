@@ -1,64 +1,33 @@
 package ch.hearc.boutiqueservice.domaine.model;
 
-import java.math.BigDecimal;
-import java.util.Objects;
-
-import ch.hearc.boutiqueservice.domaine.exception.StockInsuffisantException;
-
-
-
-
 public class Stock {
-	
-	//private Biere biere;
+
+	private Article article;
 	private int stock;
-	private BigDecimal prix;
-	private Biere biere;
 	
-	public static Stock stockPourBiere(Biere biere, int stock, BigDecimal prix) {
-		valideParametres(biere, stock, prix);
-		
-		return new Stock(biere,stock,prix);
+	
+
+	private Stock(Article article, int stock) {
+		super();
+		this.article = article;
+		this.stock = stock;
 	}
 
-	public Biere getBiere() {
-		return biere;
+
+
+	public Article getArticle() {
+		return article;
 	}
 
-	public void destocke(int nbre) {
-		
-		if(stock < nbre) {
-			throw new StockInsuffisantException(
-					String.format("Le stocke actuel [%s] ne contient pas assez d'élément pour destocker [%s]",stock,nbre)
-				);
-		}
-		
-		stock = stock - nbre;
-		
-	}
-	
+
+
 	public int getStock() {
 		return stock;
 	}
 
-	public BigDecimal getPrix() {
-		return prix;
-	}
 
-	public Stock(Biere biere, int stock, BigDecimal prix) {
-		super();
-		this.biere = biere;
-		this.stock = stock;
-		this.prix = prix;
-	}
 
-	public boolean enStock() {
-		return stock > 0;
-	}
-	
-	private static void valideParametres(Biere biere, int enStock, BigDecimal prix) {
-		Objects.requireNonNull(biere);
-		Objects.requireNonNull(prix);
-		
+	public static Stock creerStock(Article article, int stock) {
+		return new Stock(article, stock);
 	}
 }
