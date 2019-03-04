@@ -4,14 +4,17 @@ import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import ch.hearc.boutiqueservice.domaine.model.Biere;
 import ch.hearc.boutiqueservice.domaine.model.Fabricant;
 import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
 
+@Ignore
 public class BiereTest {
 
+	
 	@Test
 	public void givenNameAndTypeAndFabricant_whenInstanciateBiere_thenInstanceOk() {
 		Biere biere = Biere.creerBiere("Cardinal 1664", new TypeBiere("Bllonde"),new Fabricant("Cardinal") );

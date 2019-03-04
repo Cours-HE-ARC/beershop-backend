@@ -1,5 +1,7 @@
 package ch.hearc.boutiqueservice.application.api.web.ressources;
 
+import ch.hearc.boutiqueservice.domaine.model.Biere;
+
 public class BiereRessource {
 
 	private String nom;
@@ -13,6 +15,11 @@ public class BiereRessource {
 		this.fabricant = fabricant;
 		this.prix = prix;
 		this.stock = stock;
+	}
+
+	public static BiereRessource fromBiere(Biere b) {
+		
+		return new BiereRessource(b.getNom(), b.getFabricant().getNom(), b.getPrix().toString(), 1);
 	}
 	
 }

@@ -5,11 +5,15 @@ import java.util.Objects;
 
 import ch.hearc.boutiqueservice.domaine.exception.StockInsuffisantException;
 
+
+
+
 public class Stock {
 	
-	private Biere biere;
+	//private Biere biere;
 	private int stock;
 	private BigDecimal prix;
+	private Biere biere;
 	
 	public static Stock stockPourBiere(Biere biere, int stock, BigDecimal prix) {
 		valideParametres(biere, stock, prix);
@@ -25,7 +29,7 @@ public class Stock {
 		
 		if(stock < nbre) {
 			throw new StockInsuffisantException(
-					String.format("Le stocke actuel [%s] ne contient pas assez d'élément pour destocker [%s]",stock,nbre)
+					String.format("Le stocke actuel [%s] ne contient pas assez d'Ã©lÃ©ment pour destocker [%s]",stock,nbre)
 				);
 		}
 		
