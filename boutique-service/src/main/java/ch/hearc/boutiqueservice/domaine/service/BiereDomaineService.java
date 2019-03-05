@@ -1,6 +1,5 @@
 package ch.hearc.boutiqueservice.domaine.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import ch.hearc.boutiqueservice.domaine.commande.CreerBiereCommande;
 import ch.hearc.boutiqueservice.domaine.model.Article;
@@ -11,9 +10,6 @@ import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
 import ch.hearc.boutiqueservice.domaine.repository.BiereRepository;
 import ch.hearc.boutiqueservice.domaine.repository.FabricantRepository;
 import ch.hearc.boutiqueservice.domaine.repository.StockRepository;
-import ch.hearc.boutiqueservice.infrastructure.jpa.ArticleSpringDataRepository;
-import ch.hearc.boutiqueservice.infrastructure.repository.entity.ArticleEntity;
-import ch.hearc.boutiqueservice.infrastructure.repository.entity.StockEntity;
 
 public class BiereDomaineService {
 

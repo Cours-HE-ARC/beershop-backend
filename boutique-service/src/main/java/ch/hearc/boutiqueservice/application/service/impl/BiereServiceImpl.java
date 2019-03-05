@@ -56,5 +56,11 @@ public class BiereServiceImpl implements BiereService {
 		return biereDomaineService.creerBiere(creerBiereCommande);
 	}
 
+
+	@Override
+	public Biere getBiereByNoArticle(String noArticle) {
+		return biereRepository.getBiereByNoArticle(noArticle);
+	}
+
 	
 }

@@ -17,7 +17,7 @@ import ch.hearc.boutiqueservice.domaine.model.Stock;
 import ch.hearc.boutiqueservice.domaine.model.TypeBiere;
 import ch.hearc.boutiqueservice.domaine.repository.BiereRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.ArticleSpringDataRepository;
-import ch.hearc.boutiqueservice.infrastructure.jpa.BiereJpaRepository;
+import ch.hearc.boutiqueservice.infrastructure.jpa.BiereSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.FabricantSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.StockSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.TypeBiereSpringDataRepository;
@@ -31,7 +31,7 @@ import ch.hearc.boutiqueservice.infrastructure.repository.entity.TypeBiereEntity
 public class BiereH2Repository implements BiereRepository {
 
 	@Autowired
-	private BiereJpaRepository biereJpaRepository;
+	private BiereSpringDataRepository biereJpaRepository;
 	
 	@Autowired
 	private TypeBiereSpringDataRepository typeBiereRepository;
@@ -129,6 +129,12 @@ public class BiereH2Repository implements BiereRepository {
 		 return typeBiereRepository.findById(Long.valueOf(idType)).get().toTypeBiere();
 	}
 
-	
+	public Biere getBiereByNoArticle (String noArticle) {
+		
+		BiereEntity biereEntity =  biereJpaRepository.findByArticle_NoArticle(noArticle).get();
+		
+		return creerBiereAgregatFromEntity(biereEntity);
+		
+	}
 
 }

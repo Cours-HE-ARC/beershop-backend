@@ -16,6 +16,8 @@ public interface BiereRepository {
 	List<TypeBiere> listerTypeBieres();
 
 	TypeBiere getTypeBiereById(String idType);
+	
+	Biere getBiereByNoArticle(String noArticle);
 
 	
 }

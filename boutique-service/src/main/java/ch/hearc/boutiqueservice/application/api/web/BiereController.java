@@ -3,8 +3,11 @@ package ch.hearc.boutiqueservice.application.api.web;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +46,17 @@ public class BiereController {
 		}).collect(Collectors.toList());
 		
 	}
+	
+	@GetMapping("/{noArticle}")
+	public BiereRessource getBiereByNoArticle(@PathVariable("noArticle") String noArticle){
+		
+		return BiereRessource.fromBiere(
+				biereService.getBiereByNoArticle(noArticle)
+		);
+		
+	}
+	
+	
 	
 	
 	@PostMapping

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import ch.hearc.boutiqueservice.domaine.model.Fabricant;
 import ch.hearc.boutiqueservice.domaine.repository.FabricantRepository;
-import ch.hearc.boutiqueservice.infrastructure.jpa.BiereJpaRepository;
+import ch.hearc.boutiqueservice.infrastructure.jpa.BiereSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.jpa.FabricantSpringDataRepository;
 import ch.hearc.boutiqueservice.infrastructure.repository.entity.FabricantEntity;
 import javassist.tools.framedump;
