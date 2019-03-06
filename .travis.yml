@@ -12,4 +12,4 @@ before_script:
   
 script:
   - mvn clean install
-  - node_modules/.bin/newman run api-tests/boutique-service.postman_collection.json -e api-tests/beershop-local.postman_environment.json
+  - node_modules/.bin/newman run api-tests/boutique-service.postman_collection.json -e api-tests/jelastic.postman_environment.json
