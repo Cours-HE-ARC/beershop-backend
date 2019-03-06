@@ -67,7 +67,7 @@ public class BiereH2Repository implements BiereRepository {
 				articleEntity,
 				typeBiere,
 				biere.getNom(),
-				biere.getArticle().getPrix());
+				biere.getContenanceL());
 		
 		this.biereJpaRepository.save(biereEntity);
 		

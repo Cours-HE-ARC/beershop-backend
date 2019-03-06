@@ -5,6 +5,36 @@ import java.util.UUID;
 
 public  class Article {
 
+	@Override
+	public String toString() {
+		return "Article [prix=" + prix + ", noArticle=" + noArticle + ", description=" + description + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((noArticle == null) ? 0 : noArticle.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Article other = (Article) obj;
+		if (noArticle == null) {
+			if (other.noArticle != null)
+				return false;
+		} else if (!noArticle.equals(other.noArticle))
+			return false;
+		return true;
+	}
+
 	private BigDecimal prix;
 	private String noArticle;
 	private Boolean actif;

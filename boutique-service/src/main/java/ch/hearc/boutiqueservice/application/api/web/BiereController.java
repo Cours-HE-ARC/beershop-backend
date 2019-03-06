@@ -57,8 +57,6 @@ public class BiereController {
 	}
 	
 	
-	
-	
 	@PostMapping
 	public CreerBiereReponseResource createBiere(@RequestBody CreerBiereCommande creerBiereCommande ){
 		

@@ -6,9 +6,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.hearc.boutiqueservice.application.api.web.ressources.CreerPanierReponseResource;
 import ch.hearc.boutiqueservice.application.api.web.ressources.FabricantRessource;
 import ch.hearc.boutiqueservice.application.service.BiereService;
 import ch.hearc.boutiqueservice.application.service.BoutiqueService;
@@ -39,5 +41,7 @@ public class BoutiqueController {
 				.stream()
 				.map(fabricant -> FabricantRessource.fromFabricant(fabricant)).collect(Collectors.toList()));
 	}
+	
+	
 	
 }
