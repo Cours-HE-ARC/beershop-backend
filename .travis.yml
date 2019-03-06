@@ -2,5 +2,14 @@ language: java
 
 jdk: oraclejdk8
 
+install:
+  - npm install newman
+  
+before_script:
+  - node --version
+  - npm --version
+  - node_modules/.bin/newman --version
+  
 script:
 - mvn clean install
+ - node_modules/.bin/newman run api-tests/boutique-service.postman_collection.json -e api-tests/beershop-local.postman_environment.json
