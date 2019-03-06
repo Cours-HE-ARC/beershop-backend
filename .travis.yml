@@ -11,5 +11,5 @@ before_script:
   - node_modules/.bin/newman --version
   
 script:
-- mvn clean install
- - node_modules/.bin/newman run api-tests/boutique-service.postman_collection.json -e api-tests/beershop-local.postman_environment.json
+  - mvn clean install
+  - node_modules/.bin/newman run api-tests/boutique-service.postman_collection.json -e api-tests/beershop-local.postman_environment.json
