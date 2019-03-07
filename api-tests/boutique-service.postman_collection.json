@@ -452,7 +452,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{boutique-host}}:{{boutique-port}}/boutique/panier/{{noPanierCree}}",
+					"raw": "http://{{boutique-host}}:{{boutique-port}}/boutique/panier/{{noPanier}}",
 					"protocol": "http",
 					"host": [
 						"{{boutique-host}}"
