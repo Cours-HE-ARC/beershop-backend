@@ -2,9 +2,7 @@
 
 jelastic_api_url='app.jpc.infomaniak.com'
 
-email='3nltcl1s2ue3@juser.ik-server.com'
 
-password='Esteban%110978'
 
 docker_image='tutum/wordpress'
 docker_tag='latest'
@@ -20,7 +18,7 @@ log() {
 
 login() {
 
-    SESSION=$(curl -s "https://$jelastic_api_url/1.0/users/authentication/rest/signin?login=$email&password=$password" | \
+    SESSION=$(curl -s "https://$jelastic_api_url/1.0/users/authentication/rest/signin?login=$JELASTIC_USR&password=$JELASTIC_PASS" | \
         sed -E 's/^.*"session":"([^"]+)".*$/\1/')
     [ -n "$SESSION" ] || {
         log "Failed to login with credentials supplied"
