@@ -13,7 +13,7 @@ login() {
     echo "$JELASTIC_USER"
     echo "$JELASTIC_PASSWORD"
     
-    SESSION=$(curl -d "login=$JELASTIC_USER&password=$JELASTIC_PASSWORD" "https://$jelastic_api_url/1.0/users/authentication/rest/signin" | \
+    SESSION=$(curl -d "login=$JELASTIC_USER&password=$JELASTIC_PASSWORD" -H "Content-Type: application/x-www-form-urlencoded" -X POST "https://$jelastic_api_url/1.0/users/authentication/rest/signin" | \
         sed -E 's/^.*"session":"([^"]+)".*$/\1/')
     [ -n "$SESSION" ] || {
         echo "Failed to login with credentials supplied"
