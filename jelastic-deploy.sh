@@ -2,8 +2,6 @@
 
 jelastic_api_url='app.jpc.infomaniak.com'
 
-
-
 docker_image='tutum/wordpress'
 docker_tag='latest'
 

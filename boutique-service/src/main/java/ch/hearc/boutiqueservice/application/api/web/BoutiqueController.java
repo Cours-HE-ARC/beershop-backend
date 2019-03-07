@@ -14,6 +14,7 @@ import ch.hearc.boutiqueservice.application.api.web.ressources.CreerPanierRepons
 import ch.hearc.boutiqueservice.application.api.web.ressources.FabricantRessource;
 import ch.hearc.boutiqueservice.application.service.BiereService;
 import ch.hearc.boutiqueservice.application.service.BoutiqueService;
+import ch.hearc.boutiqueservice.application.util.GitProperties;
 import ch.hearc.boutiqueservice.domaine.model.Fabricant;
 
 @RestController
@@ -31,6 +32,11 @@ public class BoutiqueController {
 	@GetMapping("/health")
 	public ResponseEntity<String> checkAppHealth(){
 		return ResponseEntity.ok("app started");
+	}
+	
+	@GetMapping("/build-info")
+	public ResponseEntity getBuildInfos(){
+		return ResponseEntity.ok(new GitProperties().readGitProperties());
 	}
 	
 	@GetMapping("/fabricant")
