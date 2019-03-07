@@ -4,6 +4,7 @@ jelastic_api_url='app.jpc.infomaniak.com'
 project_id='boutique-service-stage'
 env_name='maven'
 node_id='4280'
+boutique_url='boutique-service-stage.jcloud.ik-server.com'
 
 
 
@@ -30,6 +31,8 @@ deploy_stage() {
     
     echo "=============================== DEPLOY TO STAGE $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 
+		echo "LasCommit: $TRAVIS_COMMIT, message: $TRAVIS_COMMIT_MESSAGE"
+		
 		echo "Deploy to provider:$jelastic_api_url, with env:$env_name, projectId:$project_id, nodeId:$node_id"
         
         curl -s "https://$jelastic_api_url/1.0/environment/deployment/rest/builddeployproject?delay=1&envName=$env_name&session=$SESSION&nodeid=$node_id&projectid=$project_id&isSequential=false" 
@@ -44,6 +47,11 @@ wait_about_env() {
 	
 	echo "sleeping 10 second to deploy" 
 	sleep 10
+	
+	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
+        sed -E 's/^.*"git.commit.id":"([^"]+)".*$/\1/')
+        
+    echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
 	echo "sleep end"
 	
 	echo "=============================== WAITING ABOUT ENV END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
