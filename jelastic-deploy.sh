@@ -2,39 +2,39 @@
 
 jelastic_api_url='app.jpc.infomaniak.com'
 
-docker_image='tutum/wordpress'
-docker_tag='latest'
+project_id='boutique-service-dev'
+env_name='maven'
+node_id='4280'
 
-env_name='testenv-'$(((RANDOM % 10000) + 1))
 
-WORK_DIR=$(dirname $0)
-LOG="$WORK_DIR/$hoster_api_url.log"
-
-log() {
-	echo "logs ok"
-    echo -e "\n$@" >>"$LOG"
-}
 
 login() {
 
+    echo "=============================== Login to provider ==============================="
+    
     SESSION=$(curl -s "https://$jelastic_api_url/1.0/users/authentication/rest/signin?login=$JELASTIC_USR&password=$JELASTIC_PASS" | \
         sed -E 's/^.*"session":"([^"]+)".*$/\1/')
     [ -n "$SESSION" ] || {
-        log "Failed to login with credentials supplied"
+        echo "Failed to login with credentials supplied"
         exit 0
     }
+    
+    echo "Login ok"
+    
+	
+	echo "=============================== Login end ==============================="
 }
 
-create_environment() {
-    log "=============================== START CREATING $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
+deploy_dev() {
+    echo "=============================== DEPLOY TO STAGE $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 
-        request='nodes=[{"nodeType":"docker","extip":false,"count":1,"fixedCloudlets":1,"flexibleCloudlets":16,"fakeId":-1,"dockerName":"'$docker_image'","dockerTag":"'$docker_tag'","displayName":"'$docker_image':'$docker_tag'","metadata":{"layer":"cp"}}]&env={"pricingType":"HYBRID","region":"default_region","shortdomain":"'$env_name'"}&actionkey=createenv;'$env_name'&appid='$platform_app_id'&session='$SESSION
+		echo "Deploy to provider:$jelastic_api_url, with env:$env_name, projectId:$project_id, nodeId:$node_id"
+        
+        curl -s "https://$jelastic_api_url/1.0/environment/deployment/rest/builddeployproject?delay=1&envName=$env_name&session=35ex0e8baeaa2b22267d23a10d9657f2773e&nodeid=$node_id&projectid=$project_id&isSequential=false" >> "$LOG"
+		
+		echo "Deploy command send"
 
-        log "$request"
-
-        curl -s "https://$jelastic_api_url/1.0/environment/deployment/rest/builddeployproject?delay=1&envName=maven&session=35ex0e8baeaa2b22267d23a10d9657f2773e&nodeid=4280&projectid=boutique-service_cp_ROOT_103301&isSequential=false" >> "$LOG"
-
-    log "=============================== STOP CREATING $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
+    echo "=============================== DEPLOY END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 }
 
 

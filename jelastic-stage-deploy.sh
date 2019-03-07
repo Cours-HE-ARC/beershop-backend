@@ -1,7 +1,10 @@
 #!/bin/bash
 
 jelastic_api_url='app.jpc.infomaniak.com'
-env_name='boutique-service-stage'
+project_id='boutique-service-stage'
+env_name='maven'
+node_id='4280'
+
 
 
 login() {
@@ -11,9 +14,12 @@ login() {
     SESSION=$(curl -s "https://$jelastic_api_url/1.0/users/authentication/rest/signin?login=$JELASTIC_USR&password=$JELASTIC_PASS" | \
         sed -E 's/^.*"session":"([^"]+)".*$/\1/')
     [ -n "$SESSION" ] || {
-        log "Failed to login with credentials supplied"
+        echo "Failed to login with credentials supplied"
         exit 0
     }
+    
+    echo "Login ok"
+    
 	
 	echo "=============================== Login end ==============================="
 }
@@ -22,9 +28,11 @@ deploy_stage() {
     
     echo "=============================== DEPLOY TO STAGE $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 
+		echo "Deploy to provider:$jelastic_api_url, with env:$env_name, projectId:$project_id, nodeId:$node_id"
         
-
-        curl -s "https://$jelastic_api_url/1.0/environment/deployment/rest/builddeployproject?delay=1&envName=maven&session=35ex0e8baeaa2b22267d23a10d9657f2773e&nodeid=4280&projectid=$env_name&isSequential=false" >> "$LOG"
+        curl -s "https://$jelastic_api_url/1.0/environment/deployment/rest/builddeployproject?delay=1&envName=$env_name&session=35ex0e8baeaa2b22267d23a10d9657f2773e&nodeid=$node_id&projectid=$project_id&isSequential=false" >> "$LOG"
+		
+		echo "Deploy command send"
 
     echo "=============================== DEPLOY END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 }
