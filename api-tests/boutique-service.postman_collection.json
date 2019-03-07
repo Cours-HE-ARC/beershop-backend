@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fc259328-dcdb-4885-929c-7c742d543164",
+		"_postman_id": "cd4ac725-e69d-431f-a399-bc4a4d0a4d66",
 		"name": "boutique-service",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -282,7 +282,8 @@
 							"pm.test(\"noPanier size is 36\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.noPanier).to.have.lengthOf(36);",
-							"    pm.globals.set(\"noPanierCree\",jsonData.noPanier);",
+							"    pm.globals.set(\"noPanier\",jsonData.noPanier);",
+							"    console.log(\"NoPanier set: \" + pm.globals.get(\"noPanier\"));",
 							"});",
 							"",
 							""
@@ -328,6 +329,8 @@
 					"script": {
 						"id": "efdb07c5-905b-4727-8a7c-cd5f45c1c6d1",
 						"exec": [
+							"",
+							"",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
@@ -344,7 +347,27 @@
 							"pm.test(\"noArticle size is 36\", function () {",
 							"    var jsonData = pm.response.json();",
 							"    pm.expect(jsonData.noPanier).to.have.lengthOf(36);",
+							"    pm.globals.set(\"noPanierCree\",jsonData.noPanier)",
 							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1dd8dcff-6d8b-4999-a811-f122f7461d20",
+						"exec": [
+							"let noPanier = \"jfsjfkdslhafjkds\"",
+							"",
+							"if(!pm.globals.has(\"noPanier\")){",
+							"    pm.globals.set(\"noPanier\",noPanier)",
+							"}else{",
+							"    console.log(\"Using noPanier: \" + pm.globals.get(\"noPanier\"))",
+							"}",
+							"",
+							"console.log(\"PUT, noPanier: \" + pm.globals.get(\"noPanier\") )",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -365,7 +388,7 @@
 					"raw": "{\n\t\"noArticle\":\"aaaaaaaa-f0e8-4386-9628-cccccccccccc\",\n\t\"nombre\":2\n}"
 				},
 				"url": {
-					"raw": "http://{{boutique-host}}:{{boutique-port}}/boutique/panier/{{noPanierCree}}",
+					"raw": "http://{{boutique-host}}:{{boutique-port}}/boutique/panier/{{noPanier}}",
 					"protocol": "http",
 					"host": [
 						"{{boutique-host}}"
@@ -374,7 +397,7 @@
 					"path": [
 						"boutique",
 						"panier",
-						"{{noPanierCree}}"
+						"{{noPanier}}"
 					]
 				}
 			},
@@ -409,6 +432,16 @@
 						],
 						"type": "text/javascript"
 					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ba906314-9ed9-4fa4-b0aa-53935021bb51",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
 				}
 			],
 			"request": {
@@ -429,6 +462,54 @@
 						"boutique",
 						"panier",
 						"{{noPanierCree}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/boutique/build-infos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "49f9d60b-00b9-4544-b10c-ad7fbf48a685",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 1s\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"pm.test(\"Response format\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[\"git.branch\"]).to.exist;",
+							"    pm.expect(jsonData[\"git.commit.id\"]).to.exist;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{boutique-host}}:{{boutique-port}}/boutique/build-info",
+					"protocol": "http",
+					"host": [
+						"{{boutique-host}}"
+					],
+					"port": "{{boutique-port}}",
+					"path": [
+						"boutique",
+						"build-info"
 					]
 				}
 			},
