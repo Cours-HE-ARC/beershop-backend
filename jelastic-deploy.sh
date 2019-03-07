@@ -11,6 +11,7 @@ WORK_DIR=$(dirname $0)
 LOG="$WORK_DIR/$hoster_api_url.log"
 
 log() {
+	echo "logs ok"
     echo -e "\n$@" >>"$LOG"
 }
 

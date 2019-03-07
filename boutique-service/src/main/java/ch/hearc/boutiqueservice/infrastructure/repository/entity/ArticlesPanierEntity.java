@@ -22,7 +22,6 @@ public class ArticlesPanierEntity {
 	private int nombre;
 	
 	@OneToOne(fetch = FetchType.LAZY)
-	@MapsId
 	private ArticleEntity article;
 	
 	public ArticleEntity getArticle() {
