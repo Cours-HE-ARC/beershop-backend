@@ -49,9 +49,17 @@ wait_about_env() {
 	sleep 10
 	
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
-        jq '."git.commit.id"')
+       jq --raw-output '."git.commit.id"')
         
     echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
+    if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
+    then
+      echo "match"
+    else
+      echo "dont match"
+    fi	
+    
+    
 	echo "sleep end"
 	
 	echo "=============================== WAITING ABOUT ENV END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
