@@ -62,10 +62,10 @@ check_commit_id_coherence() {
     echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
     if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
     then
-      echo 1
+      echo "match"
       return 1
     else
-      echo 0
+      echo "dont match"
       return 0
     fi
 }
@@ -73,14 +73,11 @@ check_commit_id_coherence() {
 login
 deploy_stage
 wait_about_env
-commitCoherence=$(check_commit_id_coherence)
 
-echo $commitCoherence
 
- while [ $commitCoherence -eq 0 ]; do
+ while [ $(check_commit_id_coherence) -eq 0 ]; do
              sleep 5
              echo "sleeping 5"
-             commitCoherence=$(check_commit_id_coherence)
          done
 
 	
