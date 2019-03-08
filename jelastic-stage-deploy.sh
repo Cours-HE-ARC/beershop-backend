@@ -73,11 +73,14 @@ check_commit_id_coherence() {
 login
 deploy_stage
 wait_about_env
-check_commit_id_coherence
+commitCoherence=$(check_commit_id_coherence)
 
- while [ ! $(check_commit_id_coherence) ]; do
+echo $commitCoherence
+
+ while [ ! $commitCoherence ]; do
              sleep 5
              echo "sleeping 5"
+             commitCoherence=$(check_commit_id_coherence)
          done
 
 	
