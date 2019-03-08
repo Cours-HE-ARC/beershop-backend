@@ -49,17 +49,6 @@ wait_about_env() {
 	
 	sleep 10
 	
-	
-	i="0"
-
-	while [ !check_commit_id_coherence ]
-	do
-		sleep 5
-		echo "seeping 5 end"
-	done
-		
-    
-    
 	echo "sleep end"
 	
 	echo "=============================== WAITING ABOUT ENV END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
@@ -84,3 +73,9 @@ check_commit_id_coherence(){
 login
 deploy_stage
 wait_about_env
+
+while [ !check_commit_id_coherence ]
+	do
+		sleep 5
+		echo "sleeping 5 end"
+	done
