@@ -62,10 +62,10 @@ check_commit_id_coherence() {
     echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
     if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
     then
-      echo "match"
+      echo 1
       return 1
     else
-      echo "dont match"
+      echo 0
       return 0
     fi
 }
