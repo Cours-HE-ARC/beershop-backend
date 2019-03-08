@@ -49,7 +49,7 @@ wait_about_env() {
 	sleep 10
 	
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
-        jq .'git.commit.id')
+        jq '."git.commit.id"')
         
     echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
 	echo "sleep end"
