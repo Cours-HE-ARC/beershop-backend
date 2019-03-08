@@ -77,10 +77,9 @@ commitCoherence=$(check_commit_id_coherence)
 
 echo $commitCoherence
 
- while [ $commitCoherence -eq 0 ]; do
+ while [[ check_commit_id_coherence == 0 ]]; do
              sleep 5
              echo "sleeping 5"
-             commitCoherence=$(check_commit_id_coherence)
          done
 
 	
