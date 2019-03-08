@@ -59,7 +59,7 @@ check_commit_id_coherence() {
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
        jq --raw-output '."git.commit.id"')
         
-    echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
+    #echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
     if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
     then
       echo 1
