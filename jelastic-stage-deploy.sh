@@ -46,8 +46,27 @@ wait_about_env() {
 	echo "=============================== WAITING ABOUT ENV $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
 	
 	echo "sleeping 10 second to deploy" 
+	
 	sleep 10
 	
+	
+	i="0"
+
+	while [ !check_commit_id_coherence ]
+	do
+		sleep 5
+		echo "seeping 5 end"
+	done
+		
+    
+    
+	echo "sleep end"
+	
+	echo "=============================== WAITING ABOUT ENV END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
+	
+}
+
+check_commit_id_coherence(){
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
        jq --raw-output '."git.commit.id"')
         
@@ -55,15 +74,11 @@ wait_about_env() {
     if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
     then
       echo "match"
+      return 1
     else
       echo "dont match"
-    fi	
-    
-    
-	echo "sleep end"
-	
-	echo "=============================== WAITING ABOUT ENV END $env_name | $(date +%d.%m.%y_%H-%M-%S) ==============================="
-	
+      return 0
+    fi
 }
 
 login
