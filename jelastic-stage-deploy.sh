@@ -55,7 +55,7 @@ wait_about_env() {
 	
 }
 
-check_commit_id_coherence(){
+check_commit_id_coherence() {
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
        jq --raw-output '."git.commit.id"')
         
@@ -74,7 +74,7 @@ login
 deploy_stage
 wait_about_env
 
- while [ ! check_commit_id_coherence ]; do
+ while [ !$(check_commit_id_coherence) ]; do
              sleep 5
              echo "sleeping 5"
          done
