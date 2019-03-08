@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a4a2b3b8-6d60-4b8b-8194-1857bf2c5c55",
+						"id": "c2d9dc00-d6bb-447d-8919-66902ae77051",
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -461,7 +461,7 @@
 					"path": [
 						"boutique",
 						"panier",
-						"{{noPanierCree}}"
+						"{{noPanier}}"
 					]
 				}
 			},
@@ -485,8 +485,7 @@
 							"",
 							"pm.test(\"Response format\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData[\"git.branch\"]).to.exist;",
-							"    pm.expect(jsonData[\"git.commit.id\"]).to.exist;",
+							"    pm.expect(jsonData.version).to.exist;",
 							"});"
 						],
 						"type": "text/javascript"
