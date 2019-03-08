@@ -75,7 +75,7 @@ deploy_stage
 wait_about_env
 
 
- while [ $(check_commit_id_coherence) -eq 0 ]; do
+ while [[ check_commit_id_coherence == 0 ]]; do
              sleep 5
              echo "sleeping 5"
          done
