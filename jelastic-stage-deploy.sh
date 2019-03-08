@@ -73,7 +73,7 @@ check_commit_id_coherence() {
 login
 deploy_stage
 wait_about_env
-
+check_commit_id_coherence
 
  while [[ check_commit_id_coherence == 0 ]]; do
              sleep 5
