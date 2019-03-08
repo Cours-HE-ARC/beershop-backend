@@ -59,12 +59,14 @@ check_commit_id_coherence() {
 	COMMIT_ID=$(curl "http://$boutique_url/boutique/build-info" | \
        jq --raw-output '."git.commit.id"')
         
-    #echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
+    echo "Commit id from API:$COMMIT_ID, commiId expected:$TRAVIS_COMMIT"    
     if [ "$COMMIT_ID" == "$TRAVIS_COMMIT" ] 
     then
-      echo 1
+      echo "match"
+      return 0
     else
-      echo 0
+      echo "dont match"
+      return 1
     fi
 }
 
@@ -73,7 +75,7 @@ deploy_stage
 wait_about_env
 check_commit_id_coherence
 
- while [[ $(check_commit_id_coherence) -eq 0 ]]; do
+ until check_commit_id_coherence -eq 1 ; do
              sleep 5
              echo "sleeping 5"
          done
